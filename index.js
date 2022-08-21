@@ -1,7 +1,5 @@
 const app = require('./app')
 const mongoose = require('mongoose')
-const dotenv = require('dotenv');
-dotenv.config({ path: './.env' });
 
 async function startDB () {
     await mongoose.connect('mongodb+srv://admin:admin@casinoghost.0s9watd.mongodb.net/?retryWrites=true&w=majority', {
@@ -20,9 +18,6 @@ mongoose.connection.on('error', err => {
 });
 
 const PORT =  4000
-
-
-
 
 const server = app.listen(PORT, () => {
     startDB()
