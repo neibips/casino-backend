@@ -5,6 +5,13 @@ const Games = require('../Models/gamesSchema')
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   try{
+    const timeStamp = Date.now()
+    await Games.create({
+      walletAdress: '21',
+      result: true,
+      amount: 2,
+      timeStamp
+    })
     const games = await Games.find().sort().select('walletAdress result amount timeStamp').limit().lean()
     games.reverse()
     res.send(games);
@@ -22,7 +29,7 @@ router.post('/flip', async (req, res, next) => {
     amount,
     timeStamp
   })
-  res.redirect('http://localhost:3000/flip')
+  res.end()
 })
 
 module.exports = router;
