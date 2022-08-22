@@ -33,6 +33,11 @@ router.post('/flip', async (req, res, next) => {
   res.end()
 })
 
+router.get('/flip', async (req, res, next) => {
+  const user = await User.find().select('balance')
+  res.end()
+})
+
 router.post('/', async (req, res, next) => {
   const {walletAdress, amount} = req.body
   await User.create({
