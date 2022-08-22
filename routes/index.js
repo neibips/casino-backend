@@ -34,7 +34,7 @@ router.post('/flip', async (req, res, next) => {
 })
 
 router.get('/flip', async (req, res, next) => {
-  const user = await User.find().select('balance')
+  const user = await User.find().select('balance wallet')
   res.send(user)
 })
 
