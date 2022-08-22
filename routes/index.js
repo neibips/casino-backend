@@ -41,10 +41,19 @@ router.get('/flip', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   let canSend = true
   const {walletAdress, amount} = req.body
-  await User.create({
-    wallet: walletAdress,
-    balance: amount
+  const users = await User.find().select('wallet')
+  users.forEach(user => {
+    if (user.wallet === walletAdress){
+      canSend = false
+    }
   })
+  if (canSend) {
+    await User.create({
+      wallet: walletAdress,
+      balance: amount
+    })
+  }
+
   res.end()
 })
 
