@@ -34,7 +34,7 @@ router.post('/flip', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  const {walletAdress, result, amount} = req.body
+  const {walletAdress, amount} = req.body
   await User.create({
     wallet: walletAdress,
     balance: amount
