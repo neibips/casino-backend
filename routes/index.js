@@ -39,11 +39,13 @@ router.get('/flip', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  let canSend = true
   const {walletAdress, amount} = req.body
   await User.create({
     wallet: walletAdress,
     balance: amount
   })
+  res.end()
 })
 
 module.exports = router;
