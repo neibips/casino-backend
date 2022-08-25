@@ -18,9 +18,12 @@ router.post('/flip', async (req, res, next) => {
   const {walletAdress, result, amount} = req.body
   const user = await User.findOne({wallet: walletAdress}).select('wallet isActive balance ')
   user.isActive = true
+  console.log(result)
   if(result === true){
     user.balance += amount
-  }else user.balance -= amount
+  }else {
+    user.balance -= amount
+  }
 
   const timeStamp = Date.now()
   await Games.create({
@@ -37,6 +40,19 @@ router.get('/flip', async (req, res, next) => {
   const user = await User.find().select('balance wallet')
   res.send(user)
 })
+
+router.put('/flip', async (req, res, next) => {
+  const {walletAdress, amount} = req.body
+  const user = await User.findOne({wallet: walletAdress}).select('wallet balance ')
+  if(result === true){
+    user.balance += amount
+  }else {
+    user.balance -= amount
+  }
+  await user.save()
+  res.end()
+})
+
 
 router.post('/', async (req, res, next) => {
   let canSend = true
