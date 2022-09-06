@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="232021b7-378f-4cd9-8a0c-3bdfc80567e0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Models/bet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/crashGame.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/crash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/socket.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/userSchema.js" beforeDir="false" afterPath="$PROJECT_DIR$/Models/userSchema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/stylesheets/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +32,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2DfEHb05WSlA5CpmCelBhO0oADu" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -48,7 +62,10 @@
       <workItem from="1661081653123" duration="32000" />
       <workItem from="1661109096508" duration="10577000" />
       <workItem from="1661168611815" duration="7612000" />
-      <workItem from="1661446918964" duration="932000" />
+      <workItem from="1661446918964" duration="3928000" />
+      <workItem from="1661619670868" duration="12000" />
+      <workItem from="1661667740020" duration="3219000" />
+      <workItem from="1661852380915" duration="1114000" />
     </task>
     <servers />
   </component>

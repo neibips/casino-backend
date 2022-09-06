@@ -6,7 +6,7 @@ const User = require("../Models/userSchema");
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   try{
-    const games = await Games.find().sort().select('walletAdress result amount timeStamp').limit().lean()
+    const games = await Games.find().sort({timeStamp: -1 }).select('walletAdress result amount timeStamp').limit(30).lean()
     games.reverse()
     res.send(games);
   }catch (e) {
@@ -18,12 +18,7 @@ router.post('/flip', async (req, res, next) => {
   const {walletAdress, result, amount} = req.body
   const user = await User.findOne({wallet: walletAdress}).select('wallet isActive balance ')
   user.isActive = true
-  console.log(result)
-  if(result === true){
-    user.balance += amount
-  }else {
-    user.balance -= amount
-  }
+  user.balance += amount
 
   const timeStamp = Date.now()
   await Games.create({
@@ -37,7 +32,8 @@ router.post('/flip', async (req, res, next) => {
 })
 
 router.get('/flip', async (req, res, next) => {
-  const user = await User.find().select('balance wallet')
+  const {wallet} = req.body
+  const user = await User.findOne({wallet: wallet}).select('balance wallet')
   res.send(user)
 })
 
