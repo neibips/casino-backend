@@ -15,14 +15,7 @@ async function createGame() {
     })
 }
 
-module.exports =  async function crashLogic() {
-
-    // const crashes = await Crash.findOne().sort({timeStamp: -1 }).select('active')
-    // crashes.active = false
-    // await crashes.save()
-    // if (crashes.active === true) return console.log('last crash still not complete')
-
-
+module.exports = async function crashLogic() {
     //START LOGIC
     async function logic (){
         let start = 1

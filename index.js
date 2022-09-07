@@ -60,7 +60,7 @@ const crashLogic = async() => {
         newGame.active = true
         await newGame.save()
         const finalFactor = getCrashPoint()
-        const stepFactor = 0.01
+        const stepFactor = 0.011
 
         //game start
         const activeGame = setInterval(async () => {
@@ -100,6 +100,11 @@ io.on('connection', async (socket) => {
             speed
         })
     }
+
+    socket.on('request balance', async (data) => {
+        const user = await User.findOne({wallet: data}).select('balance').lean()
+        socket.emit('update balance', user.balance)
+    })
 
     socket.on('new bid', async (data) => {
         if (newGame !== undefined){
