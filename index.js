@@ -151,7 +151,7 @@ io.on('connection', async (socket) => {
                 await user.save()
                 await newGame.save()
                 socket.emit('update balance2', user.balance)
-                socket.emit('winwin', '')
+                socket.emit('winwin', ' ')
             }
         }
     })
