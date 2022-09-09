@@ -54,29 +54,35 @@ let speed = 1
 let timer = 12
 let newGame;
 const crashLogic = async() => {
+
     newGame = await Crash.findOne().sort({_id: -1})
+
+
     //START LOGIC
     async function logic (){
         newGame.active = true
         await newGame.save()
         const finalFactor = getCrashPoint()
-        const stepFactor = 0.011
+        const stepFactor = 0.01
 
         //game start
         const activeGame = setInterval(async () => {
             if (start <= finalFactor){
                 start += stepFactor * speed
-                speed += 0.01
+                speed += stepFactor
             }else {
                 clearInterval(activeGame)
+                const timerInterval = setInterval(() => {
+                    timer -= 0.1
+                }, 100)
                 io.emit('final factor', finalFactor)
+                await Crash.deleteOne().sort({id: 1})
+                console.log('deleted')
                 // newGame.finalFactor = finalFactor
                 // newGame.active = false
                 // await newGame.save()
                 newGame = await createGame()
-                const timerInterval = setInterval(() => timer -= 0.1, 100)
                 setTimeout(async () => {
-                    timer -= 0.09
                     clearInterval(timerInterval)
                     start = 1
                     speed = 1
@@ -89,6 +95,7 @@ const crashLogic = async() => {
     logic()
 }
 crashLogic()
+
 
 io.on('connection', async (socket) => {
     const lastGame = await Crash.findOne().sort({_id: -1})
@@ -119,6 +126,7 @@ io.on('connection', async (socket) => {
                 const user = await User.findOne({wallet: data.wallet})
                 user.balance -= data.amount
                 await user.save()
+                socket.emit('update balance1', user.balance)
                 socket.emit('bid accepted', 'Your bid successfully accepted')
             } else{
                 socket.emit('bid error', 'You cant make a bid')
@@ -142,7 +150,8 @@ io.on('connection', async (socket) => {
                 user.balance += start * (bid.amount * 1)
                 await user.save()
                 await newGame.save()
-                socket.emit('winwin', user.balance)
+                socket.emit('update balance2', user.balance)
+                socket.emit('winwin', '')
             }
         }
     })
@@ -168,5 +177,17 @@ io.on('connection', async (socket) => {
             text: data.text,
             wallet: data.wallet
         })
+    })
+    socket.on('updateWindow', async () => {
+        console.log('need to update window');
+        const lastGame = await Crash.findOne().sort({_id: -1})
+        if (lastGame.active === false) {
+            socket.emit('update timer', timer)
+        }else{
+            socket.emit('update game', {
+                start,
+                speed
+            })
+        }
     })
 })
