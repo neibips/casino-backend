@@ -176,6 +176,7 @@ io.on('connection', async (socket) => {
 
         socket.emit('getUserAccount', {
             balance: user.balance,
+
             bid
         })
     })
