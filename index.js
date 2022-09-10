@@ -54,7 +54,6 @@ let speed = 1
 let timer = 12
 let newGame;
 const crashLogic = async() => {
-
     newGame = await Crash.findOne().sort({_id: -1})
 
 
@@ -76,11 +75,9 @@ const crashLogic = async() => {
                     timer -= 0.1
                 }, 100)
                 io.emit('final factor', finalFactor)
-                await Crash.deleteOne().sort({id: 1})
-                console.log('deleted')
-                // newGame.finalFactor = finalFactor
-                // newGame.active = false
-                // await newGame.save()
+                newGame.finalFactor = finalFactor
+                newGame.active = false
+                await newGame.save()
                 newGame = await createGame()
                 setTimeout(async () => {
                     clearInterval(timerInterval)
@@ -108,9 +105,19 @@ io.on('connection', async (socket) => {
         })
     }
 
+    const lastGames = await Crash.find().sort({_id: -1}).limit(11).select('finalFactor')
+    io.emit('last games', lastGames)
+
+    socket.on('get games', async () => {
+        const lastGames = await Crash.find().sort({_id: -1}).limit(11).select('finalFactor')
+        io.emit('last games', lastGames)
+    })
+
     socket.on('request balance', async (data) => {
         const user = await User.findOne({wallet: data}).select('balance').lean()
-        socket.emit('update balance', user.balance)
+        if (user === undefined){
+            socket.emit('bid error', 'Troubles with your account')
+        }else socket.emit('update balance', user.balance)
     })
 
     socket.on('new bid', async (data) => {
