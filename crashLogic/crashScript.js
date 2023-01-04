@@ -45,7 +45,7 @@ module.exports = async function crashLogic() {
             }
         }, 10)
     }
-    logic()
+    logic();
 }
 
 
