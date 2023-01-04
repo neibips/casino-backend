@@ -22,7 +22,10 @@ module.exports = async function crashLogic() {
         let speed = 1
         let timer = 10
         const newGame = await createGame()
-        const finalFactor = getCrashPoint()
+        let finalFactor = getCrashPoint()
+        if(finalFactor > 1.20) {
+            finalFactor *= 0.8;
+        }
         const stepFactor = 0.01
 
         //game start
