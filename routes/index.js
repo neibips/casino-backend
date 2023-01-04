@@ -40,7 +40,7 @@ router.get('/flip', async (req, res, next) => {
 router.put('/flip', async (req, res, next) => {
   try{
     const {walletAddress, amount} = req.body
-    const user = await User.findOne({walletAddress}).select('wallet balance')
+    const user = await User.findOne({wallet: walletAddress}).select('wallet balance')
     user.balance += amount
     await user.save()
     res.end()
